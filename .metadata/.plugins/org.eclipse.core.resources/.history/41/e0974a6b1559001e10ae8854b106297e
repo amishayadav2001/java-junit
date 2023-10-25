@@ -1,0 +1,37 @@
+package com.aurionpro.model;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class MathUtilTest {
+
+	@Test
+	void test() {
+		// fail("Not yet implemented");
+	}
+
+	@Test
+	void testAddNumber() {
+		MathUtil util = new MathUtil();
+		double add = util.addNumbers(5, 5);
+		assertEquals(10, add);
+		System.out.println("Hello Amisha!");
+	}
+
+	@Test
+	void testFactorial() {
+		MathUtil util = new MathUtil();
+		double fact = util.factorial();
+		assertEquals(120, fact);
+	}
+	
+	@Test
+	void testdivideNumber() {
+		MathUtil util = new MathUtil();
+		double divide = util.divideNumbers(20, 10);
+		assertEquals(2, divide);
+	}
+
+
+}

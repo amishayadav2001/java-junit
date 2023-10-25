@@ -1,0 +1,67 @@
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
+public class GameTest {
+
+    private Player[] players;
+    private ResultAnalyzer analyser;
+    private Board board;
+
+    @Before
+    public void setUp() {
+        // Initialize players, analyser, and board objects here as needed for testing.
+        players = new Player[] { new Player("Player1", 'X'), new Player("Player2", 'O') };
+        analyser = new ResultAnalyzer(board);
+        board = new Board();
+    }
+
+    @Test
+    public void testGetCurrentPlayer() {
+        Game game = new Game(players, analyser, board);
+        Player currentPlayer = game.getCurrentPlayer();
+        assertEquals(players[0], currentPlayer);
+    }
+
+    @Test
+    public void testSwitchPlayer() {
+        Game game = new Game(players, analyser, board);
+        Player currentPlayer = game.getCurrentPlayer();
+        game.switchPlayer();
+        Player nextPlayer = game.getCurrentPlayer();
+        assertNotEquals(currentPlayer, nextPlayer);
+    }
+
+    @Test
+    public void testPlayWithWin() {
+        // Simulate a game with a win condition.
+        // For example, mark cells to create a winning condition and verify the result.
+        Game game = new Game(players, analyser, board);
+        board.setCellMarked(0, 'X');
+        board.setCellMarked(1, 'X');
+        board.setCellMarked(2, 'X');
+        game.play(); // Play the game
+        assertEquals(ResultType.WIN, analyser.getResult());
+    }
+
+    @Test
+    public void testPlayWithDraw() {
+        // Simulate a game that ends in a draw.
+        // Mark cells to create a draw condition and verify the result.
+        Game game = new Game(players, analyser, board);
+        board.setCellMarked(0, 'X');
+        board.setCellMarked(1, 'O');
+        board.setCellMarked(2, 'X');
+        board.setCellMarked(3, 'X');
+        board.setCellMarked(4, 'O');
+        board.setCellMarked(5, 'X');
+        board.setCellMarked(6, 'O');
+        board.setCellMarked(7, 'X');
+        board.setCellMarked(8, 'O');
+        game.play(); // Play the game
+        assertEquals(ResultType.DRAW, analyser.getResult());
+    }
+
+    // Add more test cases as needed to thoroughly test the Game class.
+
+}

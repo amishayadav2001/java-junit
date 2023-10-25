@@ -1,0 +1,37 @@
+package com.aurionpro.model;
+
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.jupiter.api.Test;
+
+public class CellTest {
+
+    private Cell cell;
+
+    @Before
+    public void setUp() {
+        cell = new Cell();
+    }
+
+    @Test
+    public void testIsEmpty() {
+        assertTrue(cell.isEmpty());
+
+        // Mark the cell
+        try {
+            cell.setMark(MarkType.X);
+        } catch (CellAlreadyMarkedException e) {
+            fail("Exception should not have been thrown.");
+        }
+
+        assertFalse(cell.isEmpty());
+    }
+
+    @Test
+    public void testGetMark() {
+        assertEquals(MarkType.EMPTY, cell.getMark());
+
+        // Mark the cell
+        try {
+            cell.setMark(MarkType

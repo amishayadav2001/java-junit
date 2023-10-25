@@ -1,0 +1,75 @@
+package com.aurionpro.model;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.List;
+import java.util.Arrays;
+
+import org.junit.jupiter.api.Test;
+
+class MathUtilTest {
+
+	@Test
+	void test() {
+		// fail("Not yet implemented");
+	}
+
+	@Test
+	void testAddNumber() {
+		MathUtil util = new MathUtil();
+		double add = util.addNumbers(5, 5);
+		assertEquals(10, add);
+		System.out.println("Hello Amisha!");
+	}
+
+	@Test
+	void testFactorial() {
+		MathUtil util = new MathUtil();
+		double fact = util.factorial();
+		assertEquals(120, fact);
+	}
+
+	@Test
+	void testdivideNumber() {
+		MathUtil util = new MathUtil();
+		double divide = util.divideNumbers(20, 10);
+		assertEquals(2, divide);
+		// assertTrue(2==divide);
+		// assertFalse(2==divide);
+	}
+
+	void testArray() {
+		int[] numbers1 = { 10, 20, 30, 40, 50 };
+		int[] numbers2 = { 20, 30, 40, 50, 60 };
+		MathUtil util = new MathUtil();
+		assertArrayEquals(numbers2, util.addTenToArray(numbers1));
+
+	}
+
+	@Test
+	void testArrayList() {
+		Integer[] numbers1 = { 10, 20, 30, 40, 50 };
+		List<Integer> inputList = Arrays.asList(numbers1);
+
+		Integer[] numbers2 = { 10, 20, 30, 50, 50 };
+		List<Integer> resultList = Arrays.asList(numbers2);
+
+		assertIterableEquals(resultList, inputList);
+
+	}
+
+	@Test
+	void testDivideNumbers_checkResult() {
+		MathUtil util = new MathUtil();
+		assertEquals(2, util.divideNumbers(10, 5));
+	}
+
+	@Test
+	void testDivideNumbers_checkException() {
+		MathUtil util = new MathUtil();
+		assertThrows(NullPointerException.class, () -> util.divideNumbers(10, 0));
+	}
+}

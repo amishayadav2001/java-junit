@@ -1,0 +1,37 @@
+package com.aurionpro.model;
+
+public class Game {
+    private Player currentPlayer;
+    private Player[] players;
+    private ResultAnalyzer analyser;
+    private Board board;
+
+    public Game(Player[] players, ResultAnalyzer analyser, Board board) {
+        this.players = players;
+        this.currentPlayer = players[0];
+        this.analyser = analyser;
+        this.board = board;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void play(int loc) throws CellAlreadyMarkedException {
+        if (currentPlayer != null && loc >= 0 && loc <= 8 && !board.isBoardFull()) {
+            if (!board.getCells()[loc].isMarked()) {
+                board.setCellMarked(loc, currentPlayer.getPlayerMark());
+                analyser.analyzeResult();
+                switchPlayer();
+            } else {
+                System.out.println("Invalid move! Cell already marked.");
+            }
+        } else {
+            System.out.println("Invalid move!");
+        }
+    }
+
+    private void switchPlayer() {
+        currentPlayer = (currentPlayer == players[0]) ? players[1] : players[0];
+    }
+}

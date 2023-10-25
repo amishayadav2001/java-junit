@@ -1,0 +1,25 @@
+package com.aurionpro.model;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class GameTest {
+
+	// @Test
+	// void test() {
+	// fail("Not yet implemented");
+	// }
+
+	public static void main(String[] args) {
+	    Player player1 = new Player("Player 1", MarkType.X);
+	    Player player2 = new Player("Player 2", MarkType.O);
+	    ResultAnalyzer analyzer = new ResultAnalyzer(new Board());
+	    Board board = new Board();
+
+	    Game game = new Game(new Player[] { player1, player2 }, analyzer, board);
+	    game.play();
+	}
+
+
+}

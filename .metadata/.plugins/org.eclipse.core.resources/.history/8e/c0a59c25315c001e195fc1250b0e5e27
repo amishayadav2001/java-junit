@@ -1,0 +1,40 @@
+package com.aurionpro.model;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class GameTest {
+
+//	@Test
+//	void test() {
+//		fail("Not yet implemented");
+//	}
+	
+	Board board = new Board();
+
+	Player player1 = new Player("Player 1", MarkType.X);
+	Player player2 = new Player("Player 2", MarkType.O);
+
+	ResultAnalyzer analyzer = new ResultAnalyzer(board);
+
+	board.setCellMarked(0, MarkType.X);
+	board.setCellMarked(1, MarkType.O);
+	board.setCellMarked(2, MarkType.X);
+
+	analyzer.analyzeResult();
+	ResultType gameResult = analyzer.getResult();
+
+	if (gameResult == ResultType.WIN) {
+	    System.out.println(player1.getPlayerName() + " has won!");
+	} else if (gameResult == ResultType.DRAW) {
+	    System.out.println("The game is a draw.");
+	} else {
+	    System.out.println("The game is still in progress.");
+	}
+
+	
+	
+
+
+}

@@ -1,0 +1,34 @@
+package com.aurionpro.model;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class BoardTest {
+	Board board;
+
+	@BeforeEach
+	void oninit() {
+		board = new Board();
+	}
+
+	@Test
+	void testIsBoardFull() {
+		Boolean is = board.isBoardFull();
+		assertFalse(is);
+	}
+
+	@Test
+	void testSetCellMarked() throws CellAlreadyMarkedException {
+		board.setCellMarked(1, MarkType.X);
+		Cell[] cells = board.getCells();
+		assertEquals(MarkType.X, cells[1].getMark());
+	}
+
+	@Test
+	void testSetCellMarked_CellAlreadYMarkedException() throws CellAlreadyMarkedException {
+		board.setCellMarked(1, MarkType.X);
+		assertThrows(CellAlreadyMarkedException.class, () -> board.setCellMarked(1, MarkType.O));
+	}
+}

@@ -1,0 +1,79 @@
+//package com.aurionpro.model;
+//
+//import static org.junit.jupiter.api.Assertions.*;
+//
+//import org.junit.jupiter.api.Test;
+//
+//class CellTest {
+//
+//	@Test
+//	void test() {
+//		fail("Not yet implemented");
+//	}
+//
+//}
+
+
+import com.aurionpro.model.Cell;
+import com.aurionpro.model.MarkType;
+import com.aurionpro.model.CellAlreadyMarkedException;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+public class CellTest {
+
+    private Cell cell;
+
+    @Before
+    public void setUp() {
+        cell = new Cell();
+    }
+
+    @Test
+    public void testIsEmpty() {
+        assertTrue(cell.isEmpty());
+
+        // Mark the cell
+        try {
+            cell.setMark(MarkType.CROSS);
+        } catch (CellAlreadyMarkedException e) {
+            fail("Exception should not have been thrown.");
+        }
+
+        assertFalse(cell.isEmpty());
+    }
+
+    @Test
+    public void testGetMark() {
+        assertEquals(MarkType.EMPTY, cell.getMark());
+
+        // Mark the cell
+        try {
+            cell.setMark(MarkType.NOUGHT);
+        } catch (CellAlreadyMarkedException e) {
+            fail("Exception should not have been thrown.");
+        }
+
+        assertEquals(MarkType.NOUGHT, cell.getMark());
+    }
+
+    @Test
+    public void testSetMark() {
+        try {
+            cell.setMark(MarkType.CROSS);
+            assertEquals(MarkType.CROSS, cell.getMark());
+        } catch (CellAlreadyMarkedException e) {
+            fail("Exception should not have been thrown.");
+        }
+
+        // Try to mark the cell again, should throw CellAlreadyMarkedException
+        try {
+            cell.setMark(MarkType.NOUGHT);
+            fail("Expected CellAlreadyMarkedException was not thrown.");
+        } catch (CellAlreadyMarkedException e) {
+            assertEquals("Cell is already marked.", e.getMessage());
+        }
+    }
+}

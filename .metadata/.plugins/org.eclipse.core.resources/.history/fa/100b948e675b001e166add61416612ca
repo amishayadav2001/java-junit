@@ -1,0 +1,31 @@
+package com.aurionpro.model;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class StringUtilTest {
+
+	// @Test
+	// void test() {
+	// fail("Not yet implemented");
+	// }
+
+	@Test
+	public void samechar() {
+		StringUtil str = new StringUtil();
+		Boolean it = str.areFirstAndLastTwoCharactersTheSame("ASA");
+		assertTrue(it);
+	}
+
+	@Test
+	public void testTruncateInFirst2Positions() {
+		assertEquals("llo", StringUtil.truncateInFirst2Positions("Hello"));
+		assertEquals("345", StringUtil.truncateInFirst2Positions("12345"));
+		assertEquals("", StringUtil.truncateInFirst2Positions("ab"));
+		assertEquals("", StringUtil.truncateInFirst2Positions("a"));
+		assertEquals("", StringUtil.truncateInFirst2Positions(""));
+		assertEquals("", StringUtil.truncateInFirst2Positions(null));
+	}
+
+}

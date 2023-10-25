@@ -1,0 +1,80 @@
+package com.aurionpro.model;
+
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+	public class BoardTest {
+
+	    private Board board;
+
+	    @BeforeEach
+	    public void setUp() {
+	        board = new Board();
+	    }
+
+	    @Test
+	    public void testIsBoardFullEmptyBoard() {
+	        assertFalse(board.isBoardFull());
+	    }
+
+	    @Test
+	    public void testIsBoardFullPartiallyFilledBoard() {
+	        // Mark some cells with X
+	        try {
+	            board.setCellMarked(0, MarkType.X);
+	            board.setCellMarked(4, MarkType.X);
+	            board.setCellMarked(8, MarkType.X);
+	        } catch (CellAlreadyMarkedException e) {
+	            fail("Exception should not have been thrown.");
+	        }
+
+	        assertFalse(board.isBoardFull());
+	    }
+
+	    @Test
+	    public void testIsBoardFullFullBoard() {
+	        // Mark all cells with X and O alternately
+	        try {
+	            for (int i = 0; i < 9; i++) {
+	                if (i % 2 == 0) {
+	                    board.setCellMarked(i, MarkType.X);
+	                } else {
+	                    board.setCellMarked(i, MarkType.O);
+	                }
+	            }
+	        } catch (CellAlreadyMarkedException e) {
+	            fail("Exception should not have been thrown.");
+	        }
+
+	        assertTrue(board.isBoardFull());
+	    }
+
+	    @Test(expected = IllegalArgumentException.class)
+	    public void testSetCellMarkedInvalidLocation() throws CellAlreadyMarkedException {
+	        board.setCellMarked(-1, MarkType.X);
+	    }
+
+	    @Test
+	    public void testGetCells() {
+	        Cell[] cells = board.getCells();
+	        assertNotNull(cells);
+	        assertEquals(9, cells.length);
+
+	        // Ensure that the cells are initialized with null
+	        for (Cell cell : cells) {
+	            assertNull(cell.getMark());
+	        }
+	    }
+	}
+
+
+}

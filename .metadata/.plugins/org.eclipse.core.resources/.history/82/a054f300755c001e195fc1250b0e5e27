@@ -1,0 +1,64 @@
+package com.aurionpro.model;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class GameTest {
+
+	private Player[] players;
+	private ResultAnalyzer analyser;
+	private Board board;
+
+	@BeforeEach
+	public void setUp() {
+		players = new Player[] { new Player("Player1", MarkType.X), new Player("Player2", MarkType.Of) };
+		analyser = new ResultAnalyzer(board);
+		board = new Board();
+	}
+
+	@Test
+	public void testGetCurrentPlayer() {
+		Game game = new Game(players, analyser, board);
+		Player currentPlayer = game.getCurrentPlayer();
+		assertEquals(players[0], currentPlayer);
+	}
+
+	@Test
+	public void testSwitchPlayer() {
+		Game game = new Game(players, analyser, board);
+		Player currentPlayer = game.getCurrentPlayer();
+		game.switchPlayer();
+		Player nextPlayer = game.getCurrentPlayer();
+		assertNotEquals(currentPlayer, nextPlayer);
+	}
+
+	@Test
+	public void testPlayWithWin() {
+		Game game = new Game(players, analyser, board);
+		board.setCellMarked(0, 'X');
+		board.setCellMarked(1, 'X');
+		board.setCellMarked(2, 'X');
+		game.play();
+		assertEquals(ResultType.WIN, analyser.getResult());
+	}
+
+	@Test
+	public void testPlayWithDraw() {
+		Game game = new Game(players, analyser, board);
+		board.setCellMarked(0, 'X');
+		board.setCellMarked(1, 'O');
+		board.setCellMarked(2, 'X');
+		board.setCellMarked(3, 'X');
+		board.setCellMarked(4, 'O');
+		board.setCellMarked(5, 'X');
+		board.setCellMarked(6, 'O');
+		board.setCellMarked(7, 'X');
+		board.setCellMarked(8, 'O');
+		game.play(); // Play the game
+		assertEquals(ResultType.DRAW, analyser.getResult());
+	}
+
+}

@@ -1,0 +1,72 @@
+package com.aurionpro.model;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class ResultAnalyzerTest {
+
+	private Board board;
+	private ResultAnalyzer resultAnalyzer;
+
+	@BeforeEach
+	void test() {
+		board = new Board();
+		resultAnalyzer = new ResultAnalyzer(board);
+	}
+
+	@Test
+	public void testHorizontalWinCheck() {
+		try {
+			board.setCellMarked(0, MarkType.X);
+			board.setCellMarked(1, MarkType.X);
+			board.setCellMarked(2, MarkType.X);
+		} catch (CellAlreadyMarkedException e) {
+			System.out.println("Cell already marked");
+		}
+
+		assertTrue(resultAnalyzer.horizontalWinCheck(MarkType.X));
+	}
+
+	@Test
+	public void testVerticalWinCheck() {
+		try {
+			board.setCellMarked(1, MarkType.O);
+			board.setCellMarked(4, MarkType.O);
+			board.setCellMarked(7, MarkType.O);
+		} catch (CellAlreadyMarkedException e) {
+			System.out.println("Cell already marked");
+		}
+
+		assertTrue(resultAnalyzer.verticalWinCheck(MarkType.O));
+	}
+
+	@Test
+	public void testDiagonalWinCheck() {
+		try {
+			board.setCellMarked(0, MarkType.X);
+			board.setCellMarked(4, MarkType.X);
+			board.setCellMarked(8, MarkType.X);
+		} catch (CellAlreadyMarkedException e) {
+			System.out.println("Cell already marked");
+
+		}
+
+		assertTrue(resultAnalyzer.diagonalWinCheck(MarkType.X));
+	}
+	
+	@Test
+    void testHorizontalWinCheckNoWin() {
+        try {
+            board.setCellMarked(0, MarkType.X);
+            board.setCellMarked(4, MarkType.O);
+            board.setCellMarked(8, MarkType.X);
+        } catch (CellAlreadyMarkedException e) {
+            fail("Exception");
+        }
+
+        assertFalse(resultAnalyzer.horizontalWinCheck(MarkType.X));
+    }
+
+}

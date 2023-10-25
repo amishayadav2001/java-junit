@@ -1,0 +1,52 @@
+package com.aurionpro.model;
+
+public class Game {
+	private Player currentPlayer;
+	private Player[] players;
+	private ResultAnalyzer analyzer;
+
+	public Game(Player currentPlayer, Player[] players, ResultAnalyzer analyzer) {
+		super();
+		this.currentPlayer = currentPlayer;
+		this.players = players;
+		this.analyzer = analyzer;
+	}
+
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
+	public Player[] getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(Player[] players) {
+		this.players = players;
+	}
+
+	public ResultAnalyzer getAnalyzer() {
+		return analyzer;
+	}
+
+	public void setAnalyzer(ResultAnalyzer analyzer) {
+		this.analyzer = analyzer;
+	}
+
+	public void play(int loc) {
+
+	}
+
+	private void switchPlayer() {
+		if (currentPlayer == players[0]) {
+            currentPlayer = players[1];
+        } else {
+            currentPlayer = players[0];
+        }
+
+	}
+
+}

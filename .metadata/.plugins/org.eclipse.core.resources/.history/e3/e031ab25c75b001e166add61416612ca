@@ -1,0 +1,30 @@
+package com.aurionpro.model;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class ResultAnalyzerTest {
+
+	ResultAnalyzer analyzer;
+	Board board;
+
+	@BeforeEach
+	public void init() {
+		board = new Board();
+		analyzer = new ResultAnalyzer(board);
+	}
+
+	// @Test// void test() {
+	// fail("Not yet implemented");// }
+	@Test
+	void testHorizontalWinCheck_firstRow() throws CellAlreadyMarkedException {
+		board.setCellMarked(0, MarkType.O);
+		board.setCellMarked(1, MarkType.O);
+		board.setCellMarked(2, MarkType.O);
+
+		analyzer.horizontalWinCheck();
+		assertEquals(ResultType.WIN, analyzer.getResult());
+	}
+}

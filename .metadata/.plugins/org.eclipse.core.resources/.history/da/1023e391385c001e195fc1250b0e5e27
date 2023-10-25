@@ -1,0 +1,70 @@
+package com.aurionpro.model;
+
+import java.util.Scanner;
+
+public class Game {
+	private Player currentPlayer;
+	private Player[] players;
+	private ResultAnalyzer analyser;
+	private Board board;
+
+	public Game(Player[] players, ResultAnalyzer analyser, Board board) {
+		this.players = players;
+		this.currentPlayer = players[0];
+		this.analyser = analyser;
+		this.board = board;
+	}
+
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void play() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println(board);
+		System.out.println("Enter player name: ");
+		System.out.println(currentPlayer.getPlayerName() + ", enter your move (0-8): ");
+		int loc = sc.nextInt();
+
+		while (true) {
+
+			try {
+				if (loc >= 0 && loc <= 8) {
+					if (!board.getCells()[loc].isMarked()) {
+						board.setCellMarked(loc, currentPlayer.getPlayerMark());
+						analyser.analyzeResult();
+
+						if (analyser.getResult() == ResultType.WIN) {
+							System.out.println(board);
+							System.out.println(currentPlayer.getPlayerName() + " has won!");
+							break;
+						} else if (analyser.getResult() == ResultType.DRAW) {
+							System.out.println(board);
+							System.out.println("The game is a draw.");
+							break;
+						} else {
+							switchPlayer();
+						}
+					} else {
+						System.out.println("Invalid move! Cell already marked.");
+					}
+				} else {
+					System.out.println("Invalid move! Enter a number between 0 and 8.");
+				}
+			} catch (CellAlreadyMarkedException e) {
+				System.out.println("Invalid move! Cell already marked.");
+			}
+		}
+
+	}
+
+	private void switchPlayer() {
+		if (currentPlayer == players[0]) {
+			currentPlayer = players[1];
+
+		} else {
+			currentPlayer = players[0];
+		}
+		// currentPlayer = (currentPlayer == players[0]) ? players[1] : players[0];
+	}
+}

@@ -1,0 +1,49 @@
+package com.aurionpro.model;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class GameTest {
+
+//	@Test
+//	void test() {
+//		fail("Not yet implemented");
+//	}
+	
+	// Create a Board object
+	Board board = new Board();
+
+	// Assuming you have a Player 1 with X and Player 2 with O
+	Player player1 = new Player("Player 1", MarkType.X);
+	Player player2 = new Player("Player 2", MarkType.O);
+
+	// Create a ResultAnalyzer object with the Board object
+	ResultAnalyzer analyzer = new ResultAnalyzer(board);
+
+	// Set the marks on the board (for example)
+	board.setCellMarked(0, MarkType.X);
+	board.setCellMarked(1, MarkType.O);
+	board.setCellMarked(2, MarkType.X);
+	// ... Set other marks as needed
+
+	// Analyze the result
+	analyzer.analyzeResult();
+	ResultType gameResult = analyzer.getResult();
+
+	if (gameResult == ResultType.WIN) {
+	    // Handle win condition
+	    System.out.println(player1.getPlayerName() + " has won!");
+	} else if (gameResult == ResultType.DRAW) {
+	    // Handle draw condition
+	    System.out.println("The game is a draw.");
+	} else {
+	    // The game is still in progress
+	    System.out.println("The game is still in progress.");
+	}
+
+	
+	
+
+
+}

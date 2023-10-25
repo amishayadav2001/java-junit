@@ -1,0 +1,31 @@
+package com.aurionpro.model;
+
+public class MathUtil {
+
+	public double addNumbers(double num1, double num2) {
+		return num1 + num2;
+	}
+
+	int i, fact = 1;
+	int number = 5;
+
+	public double factorial() {
+		for (i = 1; i <= number; i++) {
+			fact = fact * i;
+		}
+		return fact;
+	}
+
+	public double divideNumbers(double num1, double num2) {
+		return num1/num2;
+	}
+	
+	public int[] addTenToArray(int[]numArray) {
+		for(int i=0; i<numArray.length; i++) {
+			numArray[i]+=10;
+		}
+		return numArray;
+		
+	}
+
+}

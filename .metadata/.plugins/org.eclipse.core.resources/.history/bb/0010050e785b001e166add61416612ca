@@ -1,0 +1,38 @@
+package com.aurionpro.model;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class BoardTest {
+
+	@Test
+	void testBoard() {
+		Board board = new Board();
+		
+		//fail("Not yet implemented");
+	}
+
+	@Test
+	void testIsBoardFull() {
+		 assertFalse(board.isBoardFull());
+		
+	}
+	
+	@Test
+    void testIsBoardFullEmptyBoard() {
+        assertFalse(board.isBoardFull());
+    }
+
+
+	@Test
+	void testSetCellMarked() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testGetCells() {
+		fail("Not yet implemented");
+	}
+
+}

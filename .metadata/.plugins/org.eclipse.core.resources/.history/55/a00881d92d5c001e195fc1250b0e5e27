@@ -1,0 +1,138 @@
+//package com.aurionpro.model;
+//
+//public class Game {
+//	private Player currentPlayer;
+//	private Player[] players;
+//	private ResultAnalyzer analyzer;
+//	private Board board;
+//
+//	public Game(Player currentPlayer, Player[] players, ResultAnalyzer analyzer, Board board) {
+//		super();
+//		this.currentPlayer = players[0];
+//		this.players = players;
+//		this.analyzer = analyzer;
+//		this.board = new Board();
+//		
+//	}
+//
+//	public Player getCurrentPlayer() {
+//		return currentPlayer;
+//	}
+//
+//	public void setCurrentPlayer(Player currentPlayer) {
+//		this.currentPlayer = currentPlayer;
+//	}
+//
+//	public Player[] getPlayers() {
+//		return players;
+//	}
+//
+//	public void setPlayers(Player[] players) {
+//		this.players = players;
+//	}
+//
+//	public ResultAnalyzer getAnalyzer() {
+//		return analyzer;
+//	}
+//
+//	public void setAnalyzer(ResultAnalyzer analyzer) {
+//		this.analyzer = analyzer;
+//	}
+//
+//	public void play(int loc) throws CellAlreadyMarkedException {
+//	
+////		if (analyzer.getResult() != ResultType.PROGRESS) {
+////			throw new IllegalStateException("The game is already over.");
+////		}
+////
+////	
+////		MarkType currentPlayerMark = currentPlayer.getMark();
+////
+////	
+////		if (loc < 0 || loc >= board.getSize()) {
+////			throw new IllegalArgumentException("Invalid location.");
+////		}
+////		
+////		int row = loc / 3;
+////		int col = loc % 3;
+////
+////	
+////		if (board.getCellMark(row, col) != MarkType.EMPTY) {
+////			throw new CellAlreadyMarkedException("The cell is already marked.");
+////		}
+////
+////
+////		board.setCellMarked(row, col, currentPlayerMark);
+////
+////
+////		analyzer.horizontalWinCheck();
+////		analyzer.verticalWinCheck();
+////		analyzer.diagonalWinCheck();
+////
+////		
+////		if (analyzer.getResult() == ResultType.PROGRESS) {
+////			switchPlayer();
+////		}
+//	}
+//
+//	private void switchPlayer() {
+//		if (currentPlayer == players[0]) {
+//			currentPlayer = players[1];
+//		} else {
+//			currentPlayer = players[0];
+//		}
+//
+//	}
+//
+//}
+
+package com.aurionpro.model;
+
+public class Game {
+	private Player currentPlayer;
+	private Player[] players;
+	private ResultAnalyzer analyser;
+
+	public Game(Player currentPlayer, Player[] players, ResultAnalyzer analyser) {
+		super();
+		this.currentPlayer = currentPlayer;
+		this.players = players;
+		this.analyser = analyser;
+	}
+
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
+	public Player[] getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(Player[] players) {
+		this.players = players;
+	}
+
+	public ResultAnalyzer getAnalyser() {
+		return analyser;
+	}
+
+	public void setAnalyser(ResultAnalyzer analyser) {
+		this.analyser = analyser;
+	}
+
+	public void play(int loc) {
+		if (currentPlayer != null && loc >= 0 && loc <= 9) {
+			switchPlayer();
+		} else {
+			System.out.println("Invalid move!");
+		}
+	}
+
+	public void switchPlayer() {
+		currentPlayer = (currentPlayer == players[0]) ? players[1] : players[0];
+	}
+}

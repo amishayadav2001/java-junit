@@ -1,0 +1,18 @@
+package com.aurionpro.model;
+
+public class MathUtil {
+	
+	public double addNumbers(double num1, double num2) {
+		return num1 + num2;
+	}
+	
+	public int factorial(int num)
+	{
+		int fact=1;
+		for (int i=1; i<=num; i++) {
+			fact=fact*i;
+			
+		}
+		return fact;
+	}
+}

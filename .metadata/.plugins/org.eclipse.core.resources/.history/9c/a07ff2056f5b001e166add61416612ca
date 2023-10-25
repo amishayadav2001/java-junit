@@ -1,0 +1,38 @@
+import com.aurionpro.model.Cell;
+import com.aurionpro.model.MarkType;
+import com.aurionpro.model.CellAlreadyMarkedException;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+public class CellTest {
+
+    private Cell cell;
+
+    @Before
+    public void setUp() {
+        cell = new Cell();
+    }
+
+    @Test
+    public void testIsEmpty() {
+        assertTrue(cell.isEmpty());
+
+        // Mark the cell
+        try {
+            cell.setMark(MarkType.X);
+        } catch (CellAlreadyMarkedException e) {
+            fail("Exception should not have been thrown.");
+        }
+
+        assertFalse(cell.isEmpty());
+    }
+
+    @Test
+    public void testGetMark() {
+        assertEquals(MarkType.EMPTY, cell.getMark());
+
+        // Mark the cell
+        try {
+            cell.setMark(MarkType

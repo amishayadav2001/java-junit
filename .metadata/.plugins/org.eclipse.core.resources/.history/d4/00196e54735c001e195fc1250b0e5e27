@@ -1,0 +1,72 @@
+
+package com.aurionpro.model;
+
+	import static org.junit.jupiter.api.Assertions.*;
+
+	import org.junit.jupiter.api.BeforeEach;
+	import org.junit.jupiter.api.Disabled;
+	import org.junit.jupiter.api.Test;
+
+	class GameTest {
+
+		@Test
+		@Disabled
+		void test() {
+			fail("Not yet implemented");
+		}
+
+		private Player player1;
+		private Player player2;
+		private ResultAnalyzer analyzer;
+		private Game game;
+
+		@BeforeEach
+		void init() throws Exception {
+			player1 = new Player("Player 1", MarkType.X);
+			player2 = new Player("Player 2", MarkType.O);
+			Player[] players = { player1, player2 };
+			analyzer = new ResultAnalyzer();
+			game = new Game(players, analyzer);
+		}
+
+		@Test
+		void testCurrentPlayer() {
+			assertEquals(player1, game.getCurrentPlayer());
+
+			game.play(0);
+			assertEquals(player2, game.getCurrentPlayer());
+
+			game.play(1);
+			assertEquals(player1, game.getCurrentPlayer());
+		}
+
+		@Test
+		void testWinning() {
+			game.play(0);
+			game.play(3);
+			game.play(1);
+			game.play(4);
+			game.play(2);
+			assertEquals(ResultType.WIN, analyzer.analyzeResult());
+		}
+
+		@Test
+		void testDraw() {
+			game.play(0);
+			game.play(1);
+			game.play(2);
+			game.play(5);
+			game.play(3);
+			game.play(6);
+			game.play(4);
+			game.play(8);
+			game.play(7);
+			
+		
+			assertEquals(ResultType.DRAW, analyzer.analyzeResult());
+		}
+
+	}
+
+
+}

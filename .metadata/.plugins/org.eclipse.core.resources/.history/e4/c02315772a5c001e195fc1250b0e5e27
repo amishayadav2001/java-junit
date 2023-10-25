@@ -1,0 +1,88 @@
+package com.aurionpro.model;
+
+public class Game {
+	private Player currentPlayer;
+	private Player[] players;
+	private ResultAnalyzer analyzer;
+	private Board board;
+
+	public Game(Player currentPlayer, Player[] players, ResultAnalyzer analyzer, Board board) {
+		super();
+		this.currentPlayer = players[0];
+		this.players = players;
+		this.analyzer = analyzer;
+		this.board = new Board();
+		
+	}
+
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
+	public Player[] getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(Player[] players) {
+		this.players = players;
+	}
+
+	public ResultAnalyzer getAnalyzer() {
+		return analyzer;
+	}
+
+	public void setAnalyzer(ResultAnalyzer analyzer) {
+		this.analyzer = analyzer;
+	}
+
+	public void play(int loc) throws CellAlreadyMarkedException {
+		// Check if the game is already over
+		if (analyzer.getResult() != ResultType.PROGRESS) {
+			throw new IllegalStateException("The game is already over.");
+		}
+
+		// Get the current player's mark
+		MarkType currentPlayerMark = currentPlayer.getMark();
+
+		// Check if the location (loc) is valid on the board
+		if (loc < 0 || loc >= board.getSize()) {
+			throw new IllegalArgumentException("Invalid location.");
+		}
+
+		// Calculate row and column based on the location (assuming a 3x3 board)
+		int row = loc / 3;
+		int col = loc % 3;
+
+		// Check if the cell is already marked
+		if (board.getCellMark(row, col) != MarkType.EMPTY) {
+			throw new CellAlreadyMarkedException("The cell is already marked.");
+		}
+
+		// Mark the cell with the current player's mark
+		board.setCellMarked(row, col, currentPlayerMark);
+
+		// Check if the game is over after the move
+		analyzer.horizontalWinCheck();
+		analyzer.verticalWinCheck();
+		analyzer.diagonalWinCheck();
+
+		// If the game is still not over, switch to the next player
+		if (analyzer.getResult() == ResultType.PROGRESS) {
+			switchPlayer();
+		}
+	}
+
+	private void switchPlayer() {
+		if (currentPlayer == players[0]) {
+			currentPlayer = players[1];
+		} else {
+			currentPlayer = players[0];
+		}
+
+	}
+
+}
